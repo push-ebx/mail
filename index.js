@@ -6,8 +6,8 @@ require('dotenv').config();
 const HOST = process.env.HOST || 'smtp.mail.ru'
 const APP_PORT = process.env.APP_PORT || 4000
 const MAIL_PORT = process.env.MAIL_PORT || 465
-const USER = process.env.USER
-const PASS = process.env.PASS
+const MAIL_USER = process.env.MAIL_USER
+const MAIL_PASS = process.env.MAIL_PASS
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -24,13 +24,13 @@ app.get('/send', (req, res) => {
         port: MAIL_PORT,
         secure: true,
         auth: {
-          user: USER,
-          pass: PASS,
+          user: MAIL_USER,
+          pass: MAIL_PASS,
         },
       });
 
       let result = await transporter.sendMail({
-        from: `"Заявка" <${USER}>`,
+        from: `"Заявка" <${MAIL_USER}>`,
         to: email,
         subject: 'Новая заявка',
         html: `<h3 style="text-align: center;">Телефон: ${phone}</h3><h3 style="text-align: center;">Имя: ${name}</h3>`,
